@@ -96,7 +96,7 @@ entitas::update() {
 }
 
 entitas::generate() {
-  msbuild::build
+  entitas::build
   local properties=(
     'Tests/TestFixtures/Preferences.properties'
     'Readme/Prefrences.properties'
@@ -215,8 +215,8 @@ entitas::pack_entitas_unity() {
 entitas::pack() {
   log_func
   entitas::update
-  msbuild::rebuild
-  nspec::run
+  entitas::rebuild
+  entitas::run_tests
 
   utils::clean_dir "${BUILD_SRC}" "${BUILD_DIST}"
 
@@ -257,4 +257,22 @@ entitas::dist_minor() {
 entitas::dist_patch() {
   version::bump_patch
   entitas::dist
+}
+
+entitas::build() {
+  log_func
+  msbuild /p:Configuration=Release /v:m
+}
+
+entitas::rebuild() {
+  log_func
+  msbuild /t:Clean /p:Configuration=Release /v:m
+  msbuild -t:restore
+  msbuild /p:Configuration=Release /v:m
+}
+
+entitas::run_tests() {
+  log_func
+  msbuild /p:Configuration=Release /v:m Tests/Tests/Tests.csproj
+  mono Tests/Tests/bin/Release/Tests.exe "$@"
 }

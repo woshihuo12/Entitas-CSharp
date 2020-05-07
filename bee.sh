@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 PROJECT="Entitas"
-PLUGINS=(changelog doxygen git github msbuild nspec tree utils version)
+PLUGINS=(changelog doxygen git github tree utils version)
 RESOURCES=.bee
 
 source "${RESOURCES}"/entitas.sh
@@ -25,13 +25,6 @@ GITHUB_ATTACHMENTS_ZIP=("Build/dist/${PROJECT}.zip")
 if [[ -f "${HOME}/.bee/github.sh" ]]; then
   source "${HOME}/.bee/github.sh"
 fi
-
-# msbuild
-MSBUILD_SOLUTION="${PROJECT}.sln"
-
-# nspec => msbuild
-NSPEC_TESTS_PROJECT=Tests/Tests/Tests.csproj
-NSPEC_TESTS_RUNNER=Tests/Tests/bin/Release/Tests.exe
 
 # tree
 TREE_IGNORE="bin|obj|Library|Libraries|*Tests|Readme|ProjectSettings|Build|docs|Temp|Examples|*.csproj|*.meta|*.sln|*.userprefs|*.properties|tree.txt"
