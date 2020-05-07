@@ -9,6 +9,7 @@ namespace Tests {
     class TestRunner {
 
         public static void Main(string[] args) {
+            Shouldly.ShouldlyConfiguration.DisableSourceInErrors();
             var tagOrClassName = string.Join(",", args);
             var types = typeof(TestRunner).Assembly.GetTypes();
             var finder = new SpecFinder(types, string.Empty);

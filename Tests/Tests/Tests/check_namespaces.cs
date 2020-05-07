@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NSpec;
+using Shouldly;
 
 class check_namespaces : nspec {
 
@@ -14,8 +15,8 @@ class check_namespaces : nspec {
         var sourceFiles = TestExtensions.GetSourceFiles(projectRoot);
 
         it["processes roughly the correct number of files"] = () => {
-            sourceFiles.Count.should_be_greater_than(150);
-            sourceFiles.Count.should_be_less_than(250);
+            sourceFiles.Count.ShouldBeGreaterThan(150);
+            sourceFiles.Count.ShouldBeLessThan(250);
         };
 
         System.Console.WriteLine("sourceFiles: " + sourceFiles.Count);
@@ -47,7 +48,7 @@ class check_namespaces : nspec {
         }
 
         each.Do((fileName, given, expected) =>
-            it["{0} namespace is {2}".With(fileName, given, expected)] = () => given.should_be(expected)
+            it["{0} namespace is {2}".With(fileName, given, expected)] = () => given.ShouldBe(expected)
         );
     }
 }

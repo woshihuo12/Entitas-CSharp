@@ -3,11 +3,12 @@ using System.IO;
 using System.Linq;
 using Entitas;
 using NSpec;
+using Shouldly;
 
 public static class TestExtensions {
 
     public static void Fail(this nspec spec) {
-        "but did".should_be("should not happen");
+        "but did".ShouldBe("should not happen");
     }
 
     public static TestEntity CreateEntity(this nspec spec) {
@@ -43,6 +44,7 @@ public static class TestExtensions {
                         !p.Contains(dir("Build")) &&
                         !p.Contains(dir("bin")) &&
                         !p.Contains(dir("obj")) &&
+                        !p.Contains(dir("packages")) &&
                         !p.Contains("AssemblyInfo.cs") &&
                         !p.Contains("Commands.cs") &&
                         !p.Contains("Program.cs")
