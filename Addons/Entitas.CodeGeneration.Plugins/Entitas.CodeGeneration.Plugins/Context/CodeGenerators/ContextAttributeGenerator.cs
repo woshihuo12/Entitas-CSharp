@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
 
@@ -11,9 +12,9 @@ namespace Entitas.CodeGeneration.Plugins {
         public bool runInDryMode { get { return true; } }
 
         const string TEMPLATE =
-            @"public sealed class ${ContextName}Attribute : Entitas.CodeGeneration.Attributes.ContextAttribute {
+@"public sealed class ${ContextName}Attribute : Entitas.CodeGeneration.Attributes.ContextAttribute {
 
-    public ${ContextName}Attribute() : base(""${ContextName}"") {
+    public ${ContextName}Attribute() : base(""${FullContextName}"") {
     }
 }
 ";
@@ -27,10 +28,11 @@ namespace Entitas.CodeGeneration.Plugins {
 
         CodeGenFile generate(ContextData data) {
             var contextName = data.GetContextName();
+            var fullContextName = data.GetFullContextName();
             return new CodeGenFile(
-                contextName + Path.DirectorySeparatorChar +
+                fullContextName.RemoveDots() + Path.DirectorySeparatorChar +
                 contextName + "Attribute.cs",
-                TEMPLATE.Replace(contextName),
+                TEMPLATE.Replace(fullContextName).WrapInNamespace(data.GetContextNamespace()),
                 GetType().FullName
             );
         }

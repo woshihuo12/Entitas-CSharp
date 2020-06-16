@@ -84,11 +84,12 @@ ${memberAssignmentList}
                 .Replace("${memberAssignmentList}", getMemberAssignmentList(data.GetMemberData()))
                 .Replace(data, contextName);
 
+            var (ns, typeName) = contextName.ExtractNamespace();
             return new CodeGenFile(
-                contextName + Path.DirectorySeparatorChar +
+                contextName.RemoveDots() + Path.DirectorySeparatorChar +
                 "Components" + Path.DirectorySeparatorChar +
-                data.ComponentNameWithContext(contextName).AddComponentSuffix() + ".cs",
-                fileContent,
+                data.ComponentNameWithContext(typeName).AddComponentSuffix() + ".cs",
+                fileContent.WrapInNamespace(ns),
                 GetType().FullName
             );
         }

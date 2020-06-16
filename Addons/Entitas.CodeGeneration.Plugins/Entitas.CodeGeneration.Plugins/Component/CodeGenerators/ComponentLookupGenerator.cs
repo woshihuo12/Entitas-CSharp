@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
 
@@ -51,7 +52,7 @@ ${componentTypesList}
         CodeGenFile[] generateEmptyLookups(ContextData[] data) {
             var emptyData = new ComponentData[0];
             return data
-                .Select(d => generateComponentsLookupClass(d.GetContextName(), emptyData))
+                .Select(d => generateComponentsLookupClass(d.GetFullContextName(), emptyData))
                 .ToArray();
         }
 
@@ -100,17 +101,20 @@ ${componentTypesList}
                     .Replace("${ComponentType}", d.GetTypeName())
                 ).ToArray());
 
+
+            var (ns, typeName) = contextName.ExtractNamespace();
+
             var fileContent = TEMPLATE
-                .Replace("${Lookup}", contextName + CodeGeneratorExtentions.LOOKUP)
+                .Replace("${Lookup}", typeName + CodeGeneratorExtentions.LOOKUP)
                 .Replace("${componentConstantsList}", componentConstantsList)
                 .Replace("${totalComponentsConstant}", totalComponentsConstant)
                 .Replace("${componentNamesList}", componentNamesList)
                 .Replace("${componentTypesList}", componentTypesList);
 
             return new CodeGenFile(
-                contextName + Path.DirectorySeparatorChar +
-                contextName + "ComponentsLookup.cs",
-                fileContent,
+                contextName.RemoveDots() + Path.DirectorySeparatorChar +
+                typeName + "ComponentsLookup.cs",
+                fileContent.WrapInNamespace(ns),
                 GetType().FullName
             );
         }

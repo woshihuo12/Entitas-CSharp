@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
 
@@ -81,11 +82,12 @@ namespace Entitas.CodeGeneration.Plugins {
                 ? FLAG_TEMPLATE
                 : STANDARD_TEMPLATE;
 
+            var (ns, typeName) = contextName.ExtractNamespace();
             return new CodeGenFile(
-                contextName + Path.DirectorySeparatorChar +
+                contextName.RemoveDots() + Path.DirectorySeparatorChar +
                 "Components" + Path.DirectorySeparatorChar +
-                data.ComponentNameWithContext(contextName).AddComponentSuffix() + ".cs",
-                template.Replace(data, contextName),
+                data.ComponentNameWithContext(typeName).AddComponentSuffix() + ".cs",
+                template.Replace(data, contextName).WrapInNamespace(ns),
                 GetType().FullName
             );
         }

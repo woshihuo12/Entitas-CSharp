@@ -39,6 +39,7 @@ namespace Entitas.CodeGeneration.Plugins {
         static IComponentDataProvider[] getComponentDataProviders() {
             return new IComponentDataProvider[] {
                 new ComponentTypeComponentDataProvider(),
+                new ComponentNamespaceComponentDataProvider(),
                 new MemberDataComponentDataProvider(),
                 new ContextsComponentDataProvider(),
                 new IsUniqueComponentDataProvider(),
@@ -114,7 +115,17 @@ namespace Entitas.CodeGeneration.Plugins {
         ComponentData createDataForComponent(Type type) {
             var data = new ComponentData();
             foreach (var provider in _dataProviders) {
-                provider.Provide(type, data);
+                try
+                {
+                    provider.Provide(type, data);
+                }
+                catch (Exception)
+                {
+                    var color = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR: " + type);
+                    Console.ForegroundColor = color;
+                }
             }
 
             return data;

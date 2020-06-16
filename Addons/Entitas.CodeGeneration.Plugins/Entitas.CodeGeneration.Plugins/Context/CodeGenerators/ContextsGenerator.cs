@@ -51,14 +51,14 @@ ${contextAssignmentsList}
 }
 ";
 
-        const string CONTEXT_PROPERTY_TEMPLATE = @"    public ${ContextType} ${contextName} { get; set; }";
-        const string CONTEXT_LIST_TEMPLATE = @"${contextName}";
-        const string CONTEXT_ASSIGNMENT_TEMPLATE = @"        ${contextName} = new ${ContextType}();";
+        const string CONTEXT_PROPERTY_TEMPLATE = @"    public ${ContextType} ${fullContextName} { get; set; }";
+        const string CONTEXT_LIST_TEMPLATE = @"${fullContextName}";
+        const string CONTEXT_ASSIGNMENT_TEMPLATE = @"        ${fullContextName} = new ${ContextType}();";
 
         public CodeGenFile[] Generate(CodeGeneratorData[] data) {
             var contextNames = data
                 .OfType<ContextData>()
-                .Select(d => d.GetContextName())
+                .Select(d => d.GetFullContextName())
                 .OrderBy(contextName => contextName)
                 .ToArray();
 

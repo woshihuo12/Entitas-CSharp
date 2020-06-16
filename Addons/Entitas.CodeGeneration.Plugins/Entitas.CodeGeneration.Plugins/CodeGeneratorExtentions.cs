@@ -24,14 +24,18 @@ namespace Entitas.CodeGeneration.Plugins {
         }
 
         public static string ComponentNameWithContext(this ComponentData data, string contextName) {
-            return contextName + data.ComponentName();
+            return contextName.RemoveDots() + data.ComponentName();
         }
 
-        public static string Replace(this string template, string contextName) {
+        public static string Replace(this string template, string fullContextTypeName)
+        {
+            var (ns, contextName) = fullContextTypeName.ExtractNamespace();
             return template
+                .Replace("${FullContextName}", fullContextTypeName)
+                .Replace("${fullContextName}", fullContextTypeName.LowercaseFirst().RemoveDots())
                 .Replace("${ContextName}", contextName)
                 .Replace("${contextName}", contextName.LowercaseFirst())
-                .Replace("${ContextType}", contextName.AddContextSuffix())
+                .Replace("${ContextType}", fullContextTypeName.AddContextSuffix())
                 .Replace("${EntityType}", contextName.AddEntitySuffix())
                 .Replace("${MatcherType}", contextName.AddMatcherSuffix())
                 .Replace("${Lookup}", contextName + LOOKUP);

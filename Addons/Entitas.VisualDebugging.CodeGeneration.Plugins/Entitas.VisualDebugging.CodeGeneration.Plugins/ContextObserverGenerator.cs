@@ -40,7 +40,7 @@ ${contextObservers}
         public CodeGenFile[] Generate(CodeGeneratorData[] data) {
             var contextNames = data
                 .OfType<ContextData>()
-                .Select(d => d.GetContextName())
+                .Select(d => d.GetFullContextName())
                 .OrderBy(contextName => contextName)
                 .ToArray();
 
@@ -55,7 +55,7 @@ ${contextObservers}
         string generateContextsClass(string[] contextNames) {
             var contextObservers = string.Join("\n", contextNames
                 .Select(contextName => CONTEXT_OBSERVER_TEMPLATE
-                    .Replace("${contextName}", contextName.LowercaseFirst())
+                    .Replace("${contextName}", contextName.LowercaseFirst().RemoveDots())
                 ).ToArray());
 
             return CONTEXTS_TEMPLATE

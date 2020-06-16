@@ -45,6 +45,11 @@ Entitas.CodeGeneration.Plugins.IgnoreNamespaces = false");
                 data.GetTypeName().ShouldBe(type.ToCompilableString());
             };
 
+            it["gets namespace"] = () =>
+            {
+                data.GetNamespace().ShouldBe("My.Namespace");
+            };
+
             it["gets contexts"] = () => {
                 var contextNames = data.GetContextNames();
                 contextNames.GetType().ShouldBe(typeof(string[]));

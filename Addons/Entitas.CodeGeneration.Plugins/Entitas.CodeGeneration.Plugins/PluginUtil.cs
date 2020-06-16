@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
 using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
@@ -19,6 +21,36 @@ namespace Entitas.CodeGeneration.Plugins {
             }
 
             return (AssemblyResolver)cachedAssemblyResolver;
+        }
+
+        public static (string ns, string typeName) ExtractNamespace(this string fullTypeName)
+        {
+            var lastDot = fullTypeName.LastIndexOf(".", StringComparison.Ordinal);
+            return lastDot != -1
+                ? (fullTypeName.Substring(0, lastDot), fullTypeName.Substring(lastDot + 1))
+                : (null, fullTypeName);
+        }
+
+        public static string WrapInNamespace(this string content, string ns)
+        {
+            if (!string.IsNullOrEmpty(ns))
+            {
+                var lines = content.Split('\n');
+                var sb = new StringBuilder();
+                foreach (var line in lines)
+                {
+                    if (line.Length > 0)
+                        sb.Append(new string(' ', 4)).Append(line).Append('\n');
+                    else
+                        sb.Append(line).Append('\n');
+                }
+
+                return $"namespace {ns} {{\n{sb}}}\n";
+            }
+            else
+            {
+                return content;
+            }
         }
     }
 }
