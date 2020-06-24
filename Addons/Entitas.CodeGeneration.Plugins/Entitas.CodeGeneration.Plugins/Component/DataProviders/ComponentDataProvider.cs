@@ -154,8 +154,7 @@ namespace Entitas.CodeGeneration.Plugins {
                         dataForEvent.ShouldGenerateComponent(false);
                         var eventComponentName = data.EventComponentName(eventData);
                         var eventTypeSuffix = eventData.GetEventTypeSuffix();
-                        var optionalContextName = dataForEvent.GetContextNames().Length > 1 ? contextName : string.Empty;
-                        var listenerComponentName = optionalContextName + eventComponentName + eventTypeSuffix.AddListenerSuffix();
+                        var listenerComponentName = eventComponentName + eventTypeSuffix.AddListenerSuffix();
                         dataForEvent.SetTypeName(listenerComponentName.AddComponentSuffix());
                         dataForEvent.SetMemberData(new[] {
                             new MemberData("System.Collections.Generic.List<I" + listenerComponentName + ">", "value")

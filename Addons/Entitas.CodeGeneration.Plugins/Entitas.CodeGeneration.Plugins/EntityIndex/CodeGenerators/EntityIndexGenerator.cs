@@ -121,13 +121,13 @@ ${getIndices}
 
         string generateCustomMethods(EntityIndexData data) {
             return ADD_CUSTOM_INDEX_TEMPLATE
-                .Replace("${contextName}", data.GetContextNames()[0].LowercaseFirst())
+                .Replace("${contextName}", data.GetContextNames()[0].LowercaseFirst().RemoveDots())
                 .Replace("${IndexType}", data.GetEntityIndexType());
         }
 
         string generateMethods(EntityIndexData data, string contextName) {
             return ADD_INDEX_TEMPLATE
-                .Replace("${contextName}", contextName.LowercaseFirst())
+                .Replace("${contextName}", contextName.LowercaseFirst().RemoveDots())
                 .Replace("${ContextName}", contextName)
                 .Replace("${IndexName}", data.GetHasMultiple()
                     ? data.GetEntityIndexName() + data.GetMemberName().UppercaseFirst()

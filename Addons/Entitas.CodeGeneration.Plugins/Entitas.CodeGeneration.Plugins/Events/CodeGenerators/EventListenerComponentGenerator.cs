@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
 
@@ -30,12 +31,13 @@ public sealed class ${EventListenerComponent} : Entitas.IComponent {
         }
 
         CodeGenFile[] generate(string contextName, ComponentData data) {
+            var (ns, typeName) = contextName.ExtractNamespace();
             return data.GetEventData()
                 .Select(eventData => new CodeGenFile(
-                    "Events" + Path.DirectorySeparatorChar +
+                    contextName.RemoveDots() + Path.DirectorySeparatorChar +
                     "Components" + Path.DirectorySeparatorChar +
-                    data.EventListener(contextName, eventData).AddComponentSuffix() + ".cs",
-                    TEMPLATE.Replace(data, contextName, eventData),
+                    data.ComponentNameWithContext(typeName).AddComponentSuffix() + ".cs",
+                    TEMPLATE.Replace(data, contextName, eventData).WrapInNamespace(ns),
                     GetType().FullName
                 )).ToArray();
         }

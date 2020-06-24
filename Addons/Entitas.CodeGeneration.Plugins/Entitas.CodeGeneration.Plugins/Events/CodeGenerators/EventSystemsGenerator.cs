@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
 
@@ -67,10 +68,11 @@ ${systemsList}
                 .Replace("${systemsList}", generateSystemList(contextName, data))
                 .Replace(contextName);
 
+            var (ns, typeName) = contextName.ExtractNamespace();
             return new CodeGenFile(
-                "Events" + Path.DirectorySeparatorChar +
-                contextName + "EventSystems.cs",
-                fileContent,
+                contextName.RemoveDots() + Path.DirectorySeparatorChar +
+                typeName + "EventSystems.cs",
+                fileContent.WrapInNamespace(ns),
                 GetType().FullName
             );
         }

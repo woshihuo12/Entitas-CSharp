@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
 
@@ -46,12 +47,13 @@ namespace Entitas.CodeGeneration.Plugins {
         }
 
         CodeGenFile[] generate(string contextName, ComponentData data) {
+            var (ns, typeName) = contextName.ExtractNamespace();
             return data.GetEventData()
                 .Select(eventData => new CodeGenFile(
-                    contextName + Path.DirectorySeparatorChar +
+                    contextName.RemoveDots() + Path.DirectorySeparatorChar +
                     "Components" + Path.DirectorySeparatorChar +
-                    contextName + data.EventListener(contextName, eventData).AddComponentSuffix() + ".cs",
-                    TEMPLATE.Replace(data, contextName, eventData),
+                    data.EventListener(contextName, eventData).AddComponentSuffix() + ".cs",
+                    TEMPLATE.Replace(data, contextName, eventData).WrapInNamespace(ns),
                     GetType().FullName
                 )).ToArray();
         }

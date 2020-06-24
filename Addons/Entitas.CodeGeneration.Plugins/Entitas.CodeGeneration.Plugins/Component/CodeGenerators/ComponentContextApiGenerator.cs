@@ -10,7 +10,7 @@ namespace Entitas.CodeGeneration.Plugins {
         public override string name { get { return "Component (Context API)"; } }
 
         const string STANDARD_TEMPLATE =
-            @"public partial class ${ContextType} {
+            @"public partial class ${ShortContextType} {
 
     public ${EntityType} ${componentName}Entity { get { return GetGroup(${MatcherType}.${ComponentName}).GetSingleEntity(); } }
     public ${ComponentType} ${validComponentName} { get { return ${componentName}Entity.${componentName}; } }
@@ -42,7 +42,7 @@ namespace Entitas.CodeGeneration.Plugins {
 ";
 
         const string FLAG_TEMPLATE =
-            @"public partial class ${ContextType} {
+            @"public partial class ${ShortContextType} {
 
     public ${EntityType} ${componentName}Entity { get { return GetGroup(${MatcherType}.${ComponentName}).GetSingleEntity(); } }
 

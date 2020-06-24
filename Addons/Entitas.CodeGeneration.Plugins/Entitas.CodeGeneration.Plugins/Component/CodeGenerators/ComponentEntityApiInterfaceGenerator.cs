@@ -27,7 +27,7 @@ namespace Entitas.CodeGeneration.Plugins {
 }
 ";
 
-        const string ENTITY_INTERFACE_TEMPLATE = "public partial class ${EntityType} : I${ComponentName}Entity { }\n";
+        const string ENTITY_INTERFACE_TEMPLATE = "public partial class ${EntityType} : ${Namespace}I${ComponentName}Entity { }\n";
 
         public override CodeGenFile[] Generate(CodeGeneratorData[] data) {
             return data
@@ -53,7 +53,7 @@ namespace Entitas.CodeGeneration.Plugins {
                 "Components" + Path.DirectorySeparatorChar +
                 "Interfaces" + Path.DirectorySeparatorChar +
                 "I" + data.ComponentName() + "Entity.cs",
-                template.Replace(data, string.Empty),
+                template.Replace(data, string.Empty).WrapInNamespace(data.GetNamespace()),
                 GetType().FullName
             );
         }
@@ -64,7 +64,9 @@ namespace Entitas.CodeGeneration.Plugins {
                 contextName.RemoveDots() + Path.DirectorySeparatorChar +
                 "Components" + Path.DirectorySeparatorChar +
                 data.ComponentNameWithContext(typeName).AddComponentSuffix() + ".cs",
-                ENTITY_INTERFACE_TEMPLATE.Replace(data, contextName).WrapInNamespace(ns),
+                ENTITY_INTERFACE_TEMPLATE
+                    .Replace("${Namespace}", string.IsNullOrEmpty(data.GetNamespace()) ? string.Empty : data.GetNamespace() + ".")
+                    .Replace(data, contextName).WrapInNamespace(ns),
                 GetType().FullName
             );
         }

@@ -12,14 +12,14 @@ namespace Entitas.CodeGeneration.Plugins {
         public bool runInDryMode { get { return true; } }
 
         const string TEMPLATE =
-            @"public sealed partial class ${ContextType} : Entitas.Context<${EntityType}> {
+            @"public sealed partial class ${ShortContextType} : Entitas.Context<${EntityType}> {
 
-    public ${ContextType}()
+    public ${ShortContextType}()
         : base(
             ${Lookup}.TotalComponents,
             0,
             new Entitas.ContextInfo(
-                ""${ContextName}"",
+                ""${FullContextName}"",
                 ${Lookup}.componentNames,
                 ${Lookup}.componentTypes
             ),
@@ -48,7 +48,7 @@ namespace Entitas.CodeGeneration.Plugins {
             return new CodeGenFile(
                 data.GetFullContextName().RemoveDots() + Path.DirectorySeparatorChar +
                 contextName.AddContextSuffix() + ".cs",
-                TEMPLATE.Replace(contextName).WrapInNamespace(data.GetContextNamespace()),
+                TEMPLATE.Replace(data.GetFullContextName()).WrapInNamespace(data.GetContextNamespace()),
                 GetType().FullName
             );
         }

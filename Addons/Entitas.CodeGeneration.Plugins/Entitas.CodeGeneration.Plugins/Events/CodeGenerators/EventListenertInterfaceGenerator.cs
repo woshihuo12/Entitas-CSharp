@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 
 namespace Entitas.CodeGeneration.Plugins {
 
@@ -40,11 +41,12 @@ namespace Entitas.CodeGeneration.Plugins {
                         .Replace("${methodParameters}", data.GetEventMethodArgs(eventData, ", " + memberData.GetMethodParameters(false)))
                         .Replace(data, contextName, eventData);
 
+                    var (ns, typeName) = contextName.ExtractNamespace();
                     return new CodeGenFile(
-                        "Events" + Path.DirectorySeparatorChar +
-                        "Interfaces" + Path.DirectorySeparatorChar +
-                        "I" + data.EventListener(contextName, eventData) + ".cs",
-                        fileContent,
+                        contextName.RemoveDots() + Path.DirectorySeparatorChar +
+                        "Components" + Path.DirectorySeparatorChar +
+                        data.ComponentNameWithContext(typeName).AddComponentSuffix() + ".cs",
+                        fileContent.WrapInNamespace(ns),
                         GetType().FullName
                     );
                 }).ToArray();

@@ -45,7 +45,7 @@ namespace Entitas.CodeGeneration.Plugins {
                         sb.Append(line).Append('\n');
                 }
 
-                return $"namespace {ns} {{\n{sb}}}\n";
+                return $"namespace {ns} {{\n{sb.ToString().TrimEnd()}\n}}\n";
             }
             else
             {

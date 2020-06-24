@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using DesperateDevs.CodeGeneration;
+using DesperateDevs.Utils;
 using Entitas.CodeGeneration.Attributes;
 
 namespace Entitas.CodeGeneration.Plugins {
@@ -10,29 +11,29 @@ namespace Entitas.CodeGeneration.Plugins {
         public override string name { get { return "Event (System)"; } }
 
         const string ANY_TARGET_TEMPLATE =
-            @"public sealed class ${Event}EventSystem : Entitas.ReactiveSystem<${EntityType}> {
+            @"public sealed class ${Event}EventSystem : Entitas.ReactiveSystem<${FullEntityType}> {
 
-    readonly Entitas.IGroup<${EntityType}> _listeners;
-    readonly System.Collections.Generic.List<${EntityType}> _entityBuffer;
+    readonly Entitas.IGroup<${FullEntityType}> _listeners;
+    readonly System.Collections.Generic.List<${FullEntityType}> _entityBuffer;
     readonly System.Collections.Generic.List<I${EventListener}> _listenerBuffer;
 
-    public ${Event}EventSystem(Contexts contexts) : base(contexts.${contextName}) {
-        _listeners = contexts.${contextName}.GetGroup(${MatcherType}.${EventListener});
-        _entityBuffer = new System.Collections.Generic.List<${EntityType}>();
+    public ${Event}EventSystem(Contexts contexts) : base(contexts.${fullContextName}) {
+        _listeners = contexts.${contextName}.GetGroup(${FullMatcherType}.${EventListener});
+        _entityBuffer = new System.Collections.Generic.List<${FullEntityType}>();
         _listenerBuffer = new System.Collections.Generic.List<I${EventListener}>();
     }
 
-    protected override Entitas.ICollector<${EntityType}> GetTrigger(Entitas.IContext<${EntityType}> context) {
+    protected override Entitas.ICollector<${FullEntityType}> GetTrigger(Entitas.IContext<${FullEntityType}> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.${GroupEvent}(${MatcherType}.${ComponentName})
+            context, Entitas.TriggerOnEventMatcherExtension.${GroupEvent}(${FullMatcherType}.${ComponentName})
         );
     }
 
-    protected override bool Filter(${EntityType} entity) {
+    protected override bool Filter(${FullEntityType} entity) {
         return ${filter};
     }
 
-    protected override void Execute(System.Collections.Generic.List<${EntityType}> entities) {
+    protected override void Execute(System.Collections.Generic.List<${FullEntityType}> entities) {
         foreach (var e in entities) {
             ${cachedAccess}
             foreach (var listenerEntity in _listeners.GetEntities(_entityBuffer)) {
@@ -48,25 +49,25 @@ namespace Entitas.CodeGeneration.Plugins {
 ";
 
         const string SELF_TARGET_TEMPLATE =
-            @"public sealed class ${Event}EventSystem : Entitas.ReactiveSystem<${EntityType}> {
+            @"public sealed class ${Event}EventSystem : Entitas.ReactiveSystem<${FullEntityType}> {
 
     readonly System.Collections.Generic.List<I${EventListener}> _listenerBuffer;
 
-    public ${Event}EventSystem(Contexts contexts) : base(contexts.${contextName}) {
+    public ${Event}EventSystem(Contexts contexts) : base(contexts.${fullContextName}) {
         _listenerBuffer = new System.Collections.Generic.List<I${EventListener}>();
     }
 
-    protected override Entitas.ICollector<${EntityType}> GetTrigger(Entitas.IContext<${EntityType}> context) {
+    protected override Entitas.ICollector<${FullEntityType}> GetTrigger(Entitas.IContext<${FullEntityType}> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.${GroupEvent}(${MatcherType}.${ComponentName})
+            context, Entitas.TriggerOnEventMatcherExtension.${GroupEvent}(${FullMatcherType}.${ComponentName})
         );
     }
 
-    protected override bool Filter(${EntityType} entity) {
+    protected override bool Filter(${FullEntityType} entity) {
         return ${filter};
     }
 
-    protected override void Execute(System.Collections.Generic.List<${EntityType}> entities) {
+    protected override void Execute(System.Collections.Generic.List<${FullEntityType}> entities) {
         foreach (var e in entities) {
             ${cachedAccess}
             _listenerBuffer.Clear();
@@ -120,11 +121,12 @@ namespace Entitas.CodeGeneration.Plugins {
                         .Replace("${methodArgs}", methodArgs)
                         .Replace(data, contextName, eventData);
 
+                    var (ns, typeName) = contextName.ExtractNamespace();
                     return new CodeGenFile(
-                        "Events" + Path.DirectorySeparatorChar +
-                        "Systems" + Path.DirectorySeparatorChar +
-                        data.Event(contextName, eventData) + "EventSystem.cs",
-                        fileContent,
+                        contextName.RemoveDots() + Path.DirectorySeparatorChar +
+                        "Components" + Path.DirectorySeparatorChar +
+                        data.ComponentNameWithContext(typeName).AddComponentSuffix() + ".cs",
+                        fileContent.WrapInNamespace(ns),
                         GetType().FullName
                     );
                 }).ToArray();

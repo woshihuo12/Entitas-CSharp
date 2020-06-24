@@ -29,16 +29,19 @@ namespace Entitas.CodeGeneration.Plugins {
 
         public static string Replace(this string template, string fullContextTypeName)
         {
-            var (ns, contextName) = fullContextTypeName.ExtractNamespace();
+            var (ns, shortContextName) = fullContextTypeName.ExtractNamespace();
             return template
                 .Replace("${FullContextName}", fullContextTypeName)
                 .Replace("${fullContextName}", fullContextTypeName.LowercaseFirst().RemoveDots())
-                .Replace("${ContextName}", contextName)
-                .Replace("${contextName}", contextName.LowercaseFirst())
+                .Replace("${ContextName}", shortContextName)
+                .Replace("${contextName}", shortContextName.LowercaseFirst())
                 .Replace("${ContextType}", fullContextTypeName.AddContextSuffix())
-                .Replace("${EntityType}", contextName.AddEntitySuffix())
-                .Replace("${MatcherType}", contextName.AddMatcherSuffix())
-                .Replace("${Lookup}", contextName + LOOKUP);
+                .Replace("${ShortContextType}", shortContextName.AddContextSuffix())
+                .Replace("${EntityType}", shortContextName.AddEntitySuffix())
+                .Replace("${FullEntityType}", fullContextTypeName.AddEntitySuffix())
+                .Replace("${MatcherType}", shortContextName.AddMatcherSuffix())
+                .Replace("${FullMatcherType}", fullContextTypeName.AddMatcherSuffix())
+                .Replace("${Lookup}", shortContextName + LOOKUP);
         }
 
         public static string Replace(this string template, ComponentData data, string contextName) {
@@ -74,8 +77,9 @@ namespace Entitas.CodeGeneration.Plugins {
         }
 
         public static string Event(this ComponentData data, string contextName, EventData eventData) {
-            var optionalContextName = data.GetContextNames().Length > 1 ? contextName : string.Empty;
-            return optionalContextName + EventComponentName(data, eventData) + GetEventTypeSuffix(eventData);
+            // var optionalContextName = data.GetContextNames().Length > 1 ? contextName : string.Empty;
+            // return optionalContextName + EventComponentName(data, eventData) + GetEventTypeSuffix(eventData);
+            return EventComponentName(data, eventData) + GetEventTypeSuffix(eventData);
         }
 
         public static string EventListener(this ComponentData data, string contextName, EventData eventData) {
