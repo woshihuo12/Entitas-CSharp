@@ -50,6 +50,11 @@ Entitas.CodeGeneration.Plugins.IgnoreNamespaces = false");
                 data.GetNamespace().ShouldBe("My.Namespace");
             };
 
+            it["namespace is empty"] = () =>
+            {
+                getData<StandardComponent>().GetNamespace().ShouldBeNull();
+            };
+
             it["gets contexts"] = () => {
                 var contextNames = data.GetContextNames();
                 contextNames.GetType().ShouldBe(typeof(string[]));
@@ -164,16 +169,16 @@ Entitas.CodeGeneration.Plugins.IgnoreNamespaces = false");
                 var d = getMultipleData<MultipleContextStandardEventComponent>();
                 d.Length.ShouldBe(3);
                 d[1].IsEvent().ShouldBeFalse();
-                d[1].GetTypeName().ShouldBe("AnyMultipleContextStandardEventListenerComponent");
+                d[1].GetTypeName().ShouldBe("TestAnyMultipleContextStandardEventListenerComponent");
                 d[1].GetMemberData().Length.ShouldBe(1);
                 d[1].GetMemberData()[0].name.ShouldBe("value");
-                d[1].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<IAnyMultipleContextStandardEventListener>");
+                d[1].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<ITestAnyMultipleContextStandardEventListener>");
 
                 d[2].IsEvent().ShouldBeFalse();
-                d[2].GetTypeName().ShouldBe("AnyMultipleContextStandardEventListenerComponent");
+                d[2].GetTypeName().ShouldBe("Test2AnyMultipleContextStandardEventListenerComponent");
                 d[2].GetMemberData().Length.ShouldBe(1);
                 d[2].GetMemberData()[0].name.ShouldBe("value");
-                d[2].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<IAnyMultipleContextStandardEventListener>");
+                d[2].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<ITest2AnyMultipleContextStandardEventListener>");
             };
         };
 

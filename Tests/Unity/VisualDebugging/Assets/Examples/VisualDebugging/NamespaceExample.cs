@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
+using My.Namespace;
 using UnityEngine;
+using EventType = Entitas.CodeGeneration.Attributes.EventType;
 
 public class NamespaceExample : MonoBehaviour
 {
@@ -39,7 +41,7 @@ namespace My.Namespace
             foreach (var e in entities)
             {
                 var i = _contexts.myNamespaceApp.GetEntityWithGame1Position(e.game1Position.Value);
-                UnityEngine.Debug.Log("My position: " + (i.game1Position.Value));
+                Debug.Log("My position: " + (i.game1Position.Value));
             }
         }
     }
@@ -61,10 +63,15 @@ namespace YourNamespace
             foreach (var e in entities)
             {
                 var i = _contexts.yourNamespaceApp.GetEntityWithGame1Position(e.game1Position.Value);
-                UnityEngine.Debug.Log("Your position: " + (i.game1Position.Value));
+                Debug.Log("Your position: " + (i.game1Position.Value));
             }
         }
     }
+}
+
+[Game, Input, Event(EventTarget.Self, EventType.Added, 999), Cleanup(CleanupMode.DestroyEntity)]
+public sealed class DestroyedComponent : IComponent
+{
 }
 
 namespace Game1

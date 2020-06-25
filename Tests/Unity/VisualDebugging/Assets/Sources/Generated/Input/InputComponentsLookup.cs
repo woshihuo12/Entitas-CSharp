@@ -8,17 +8,23 @@
 //------------------------------------------------------------------------------
 public static class InputComponentsLookup {
 
-    public const int MyString = 0;
-    public const int Test = 1;
+    public const int Destroyed = 0;
+    public const int InputDestroyedListener = 1;
+    public const int MyString = 2;
+    public const int Test = 3;
 
-    public const int TotalComponents = 2;
+    public const int TotalComponents = 4;
 
     public static readonly string[] componentNames = {
+        "Destroyed",
+        "InputDestroyedListener",
         "MyString",
         "Test"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(DestroyedComponent),
+        typeof(InputDestroyedListenerComponent),
         typeof(MyStringComponent),
         typeof(TestComponent)
     };

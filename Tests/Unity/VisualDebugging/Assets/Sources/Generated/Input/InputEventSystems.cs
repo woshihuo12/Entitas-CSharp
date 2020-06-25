@@ -6,11 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed class GameEventSystems : Feature {
+public sealed class InputEventSystems : Feature {
 
-    public GameEventSystems(Contexts contexts) {
-        Add(new AnyMyEventEventSystem(contexts)); // priority: 0
-        Add(new AnyMyEventClassEventSystem(contexts)); // priority: 0
-        Add(new GameDestroyedEventSystem(contexts)); // priority: 999
+    public InputEventSystems(Contexts contexts) {
+        Add(new InputDestroyedEventSystem(contexts)); // priority: 999
     }
 }

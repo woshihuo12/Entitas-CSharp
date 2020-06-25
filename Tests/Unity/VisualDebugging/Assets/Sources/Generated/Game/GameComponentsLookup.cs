@@ -20,51 +20,53 @@ public static class GameComponentsLookup {
     public const int CustomFlag = 9;
     public const int CustomObject = 10;
     public const int DateTime = 11;
-    public const int DictArray = 12;
-    public const int Dictionary = 13;
-    public const int DontDrawSimpleObject = 14;
-    public const int Flag = 15;
-    public const int GameObject = 16;
-    public const int HashSet = 17;
-    public const int ISomeInterface = 18;
-    public const int JaggedArray = 19;
-    public const int ListArray = 20;
-    public const int List = 21;
-    public const int ManyMembers = 22;
-    public const int MonoBehaviourSubClass = 23;
-    public const int MyBool = 24;
-    public const int MyChar = 25;
-    public const int MyDouble = 26;
-    public const int MyEnum = 27;
-    public const int MyEventClass = 28;
-    public const int MyEvent = 29;
-    public const int MyFlags = 30;
-    public const int MyFloat = 31;
-    public const int MyHiddenInt = 32;
-    public const int MyInt = 33;
-    public const int MyString = 34;
-    public const int NoContext = 35;
-    public const int Person = 36;
-    public const int Position = 37;
-    public const int Property = 38;
-    public const int Rect = 39;
-    public const int SimpleObject = 40;
-    public const int SomeClass = 41;
-    public const int SomeOtherClass = 42;
-    public const int SomeStruct = 43;
-    public const int SystemObject = 44;
-    public const int Test = 45;
-    public const int Texture2D = 46;
-    public const int Texture = 47;
-    public const int Unique = 48;
-    public const int UnityObject = 49;
-    public const int UnsupportedObject = 50;
-    public const int Vector2 = 51;
-    public const int Vector3 = 52;
-    public const int Vector4 = 53;
-    public const int Velocity = 54;
+    public const int Destroyed = 12;
+    public const int DictArray = 13;
+    public const int Dictionary = 14;
+    public const int DontDrawSimpleObject = 15;
+    public const int Flag = 16;
+    public const int GameDestroyedListener = 17;
+    public const int GameObject = 18;
+    public const int HashSet = 19;
+    public const int ISomeInterface = 20;
+    public const int JaggedArray = 21;
+    public const int ListArray = 22;
+    public const int List = 23;
+    public const int ManyMembers = 24;
+    public const int MonoBehaviourSubClass = 25;
+    public const int MyBool = 26;
+    public const int MyChar = 27;
+    public const int MyDouble = 28;
+    public const int MyEnum = 29;
+    public const int MyEventClass = 30;
+    public const int MyEvent = 31;
+    public const int MyFlags = 32;
+    public const int MyFloat = 33;
+    public const int MyHiddenInt = 34;
+    public const int MyInt = 35;
+    public const int MyString = 36;
+    public const int NoContext = 37;
+    public const int Person = 38;
+    public const int Position = 39;
+    public const int Property = 40;
+    public const int Rect = 41;
+    public const int SimpleObject = 42;
+    public const int SomeClass = 43;
+    public const int SomeOtherClass = 44;
+    public const int SomeStruct = 45;
+    public const int SystemObject = 46;
+    public const int Test = 47;
+    public const int Texture2D = 48;
+    public const int Texture = 49;
+    public const int Unique = 50;
+    public const int UnityObject = 51;
+    public const int UnsupportedObject = 52;
+    public const int Vector2 = 53;
+    public const int Vector3 = 54;
+    public const int Vector4 = 55;
+    public const int Velocity = 56;
 
-    public const int TotalComponents = 55;
+    public const int TotalComponents = 57;
 
     public static readonly string[] componentNames = {
         "AnArray",
@@ -79,10 +81,12 @@ public static class GameComponentsLookup {
         "CustomFlag",
         "CustomObject",
         "DateTime",
+        "Destroyed",
         "DictArray",
         "Dictionary",
         "DontDrawSimpleObject",
         "Flag",
+        "GameDestroyedListener",
         "GameObject",
         "HashSet",
         "ISomeInterface",
@@ -137,10 +141,12 @@ public static class GameComponentsLookup {
         typeof(CustomFlagComponent),
         typeof(CustomObjectComponent),
         typeof(DateTimeComponent),
+        typeof(DestroyedComponent),
         typeof(DictArrayComponent),
         typeof(DictionaryComponent),
         typeof(DontDrawSimpleObjectComponent),
         typeof(FlagComponent),
+        typeof(GameDestroyedListenerComponent),
         typeof(GameObjectComponent),
         typeof(HashSetComponent),
         typeof(ISomeInterfaceComponent),
