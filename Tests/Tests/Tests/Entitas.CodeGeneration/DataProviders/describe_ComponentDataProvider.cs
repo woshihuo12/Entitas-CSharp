@@ -164,16 +164,16 @@ Entitas.CodeGeneration.Plugins.IgnoreNamespaces = false");
                 var d = getMultipleData<MultipleContextStandardEventComponent>();
                 d.Length.ShouldBe(3);
                 d[1].IsEvent().ShouldBeFalse();
-                d[1].GetTypeName().ShouldBe("TestAnyMultipleContextStandardEventListenerComponent");
+                d[1].GetTypeName().ShouldBe("AnyMultipleContextStandardEventListenerComponent");
                 d[1].GetMemberData().Length.ShouldBe(1);
                 d[1].GetMemberData()[0].name.ShouldBe("value");
-                d[1].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<ITestAnyMultipleContextStandardEventListener>");
+                d[1].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<IAnyMultipleContextStandardEventListener>");
 
                 d[2].IsEvent().ShouldBeFalse();
-                d[2].GetTypeName().ShouldBe("Test2AnyMultipleContextStandardEventListenerComponent");
+                d[2].GetTypeName().ShouldBe("AnyMultipleContextStandardEventListenerComponent");
                 d[2].GetMemberData().Length.ShouldBe(1);
                 d[2].GetMemberData()[0].name.ShouldBe("value");
-                d[2].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<ITest2AnyMultipleContextStandardEventListener>");
+                d[2].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<IAnyMultipleContextStandardEventListener>");
             };
         };
 
@@ -236,17 +236,17 @@ Entitas.CodeGeneration.Plugins.IgnoreNamespaces = false");
                 d.Length.ShouldBe(3);
                 d[1].IsEvent().ShouldBeFalse();
                 d[1].ShouldGenerateComponent().ShouldBeFalse();
-                d[1].GetTypeName().ShouldBe("TestAnyEventToGenerateListenerComponent");
+                d[1].GetTypeName().ShouldBe("AnyEventToGenerateListenerComponent");
                 d[1].GetMemberData().Length.ShouldBe(1);
                 d[1].GetMemberData()[0].name.ShouldBe("value");
-                d[1].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<ITestAnyEventToGenerateListener>");
+                d[1].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<IAnyEventToGenerateListener>");
 
                 d[2].IsEvent().ShouldBeFalse();
                 d[2].ShouldGenerateComponent().ShouldBeFalse();
-                d[2].GetTypeName().ShouldBe("Test2AnyEventToGenerateListenerComponent");
+                d[2].GetTypeName().ShouldBe("AnyEventToGenerateListenerComponent");
                 d[2].GetMemberData().Length.ShouldBe(1);
                 d[2].GetMemberData()[0].name.ShouldBe("value");
-                d[2].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<ITest2AnyEventToGenerateListener>");
+                d[2].GetMemberData()[0].type.ShouldBe("System.Collections.Generic.List<IAnyEventToGenerateListener>");
             };
         };
 
