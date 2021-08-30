@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Addons\Entitas.Blueprints\Entitas.Blueprints.csproj" />
+    <ProjectReference Include="..\..\Addons\Entitas.CodeGeneration.Plugins\Entitas.CodeGeneration.Plugins.csproj" />
     <ProjectReference Include="..\..\Addons\Entitas.Migration\Entitas.Migration.csproj" />
     <ProjectReference Include="..\..\Addons\Entitas.VisualDebugging.Unity\Entitas.VisualDebugging.Unity.csproj" />
     <ProjectReference Include="..\..\Entitas\Entitas.csproj" />

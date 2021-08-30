@@ -16,7 +16,8 @@ class check_namespaces : nspec
         var projectRoot = TestExtensions.GetProjectRoot();
         var sourceFiles = TestExtensions.GetSourceFiles(projectRoot);
 
-        it["processes roughly the correct number of files"] = () => {
+        it["processes roughly the correct number of files"] = () =>
+        {
             sourceFiles.Count.ShouldBeGreaterThan(150);
             sourceFiles.Count.ShouldBeLessThan(250);
         };

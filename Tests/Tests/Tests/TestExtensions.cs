@@ -5,9 +5,10 @@ using Entitas;
 using NSpec;
 using Shouldly;
 
-public static class TestExtensions {
-
-    public static void Fail(this nspec spec) {
+public static class TestExtensions
+{
+    public static void Fail(this nspec spec)
+    {
         "but did".ShouldBe("should not happen");
     }
 

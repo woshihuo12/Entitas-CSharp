@@ -1,4 +1,5 @@
 using NSpec;
+using Shouldly;
 using Entitas.VisualDebugging.Unity;
 using Shouldly;
 
