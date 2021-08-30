@@ -87,6 +87,20 @@ DESPERATEDEVS_PLUGINS=(
   'DesperateDevs.CodeGeneration.Unity.Plugins.dll'
 )
 
+entitas::build() {
+  msbuild -verbosity:quiet /property:Configuration=Release Entitas.sln
+}
+
+entitas::rebuild() {
+  msbuild /t:Clean /p:Configuration=Release /v:m Entitas.sln
+  msbuild -verbosity:quiet /property:Configuration=Release Entitas.sln
+}
+
+entitas::run_tests() {
+  msbuild -verbosity:quiet /property:Configuration=Release Tests/Tests/Tests.csproj
+  mono Tests/Tests/bin/Release/Tests.exe "$@"
+}
+
 entitas::update() {
   log_func
   utils::clean_dir "${DEPS_DIR}"
@@ -216,6 +230,7 @@ entitas::pack() {
   log_func
   entitas::update
   entitas::rebuild
+
   entitas::run_tests
 
   utils::clean_dir "${BUILD_SRC}" "${BUILD_DIST}"
@@ -257,22 +272,4 @@ entitas::dist_minor() {
 entitas::dist_patch() {
   version::bump_patch
   entitas::dist
-}
-
-entitas::build() {
-  log_func
-  msbuild /p:Configuration=Release /v:m
-}
-
-entitas::rebuild() {
-  log_func
-  msbuild /t:Clean /p:Configuration=Release /v:m
-  msbuild -t:restore
-  msbuild /p:Configuration=Release /v:m
-}
-
-entitas::run_tests() {
-  log_func
-  msbuild /p:Configuration=Release /v:m Tests/Tests/Tests.csproj
-  mono Tests/Tests/bin/Release/Tests.exe "$@"
 }
