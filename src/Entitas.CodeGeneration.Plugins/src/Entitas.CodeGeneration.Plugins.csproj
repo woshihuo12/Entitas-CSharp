@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entitas\src\Entitas.csproj" />
+    <ProjectReference Include="..\..\Entitas.CodeGeneration.Attributes\src\Entitas.CodeGeneration.Attributes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DesperateDevs.CodeGeneration.CodeGenerator" Version="0.1.0" />
+    <PackageReference Include="System.CodeDom" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
