@@ -7,10 +7,11 @@ obj
 bin
 *.userprefs
 *.user
-test-results
-packages
+TestResults
+coverage
 
 # IDEs
+packages
 .vs
 .vscode
 .idea
@@ -18,17 +19,18 @@ packages
 **/Assets/Plugins/Editor/JetBrains.meta
 
 # Unity
-Library
-Temp
+!**/unity/*/Packages
+**/unity/*/Library
+**/unity/*/Temp
+**/unity/*/Logs
+**/unity/*/UserSettings
+**/unity/*/*.sln
 *.unitypackage
 Assembly-CSharp*.csproj
 
+# Jenny
+*.userproperties
+
 # Custom
 CHANGES.md
-*.userproperties
-Build
-**/Assets/Libraries
-**/Assets/Libraries.meta
-Tests/Unity/CodeGenerator/Jenny
-Blueprints.sln
-VisualDebugging.sln
+build

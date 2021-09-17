@@ -1,30 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="DesperateDevs.Analytics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="DesperateDevs.CodeGeneration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.CodeGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="DesperateDevs.CodeGeneration.CodeGenerator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.CodeGeneration.CodeGenerator.dll</HintPath>
-    </Reference>
-    <Reference Include="DesperateDevs.Serialization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="DesperateDevs.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.Utils.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Entitas\Entitas.csproj" />
     <ProjectReference Include="..\Entitas.CodeGeneration.Attributes\Entitas.CodeGeneration.Attributes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DesperateDevs.CodeGeneration.CodeGenerator" Version="0.1.0" />
+    <PackageReference Include="System.CodeDom" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

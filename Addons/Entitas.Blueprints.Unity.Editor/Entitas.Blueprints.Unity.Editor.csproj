@@ -1,27 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="DesperateDevs.Unity.Editor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.Unity.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="DesperateDevs.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\UnityEngine.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Entitas.Blueprints.Unity\Entitas.Blueprints.Unity.csproj" />
     <ProjectReference Include="..\Entitas.VisualDebugging.Unity.Editor\Entitas.VisualDebugging.Unity.Editor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="$(UnityEditor)" />
+    <Reference Include="$(UnityEngine)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DesperateDevs.Unity.Editor" Version="0.1.0" />
   </ItemGroup>
 
 </Project>

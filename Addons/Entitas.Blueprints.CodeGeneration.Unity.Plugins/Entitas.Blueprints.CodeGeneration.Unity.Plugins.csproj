@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,15 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="DesperateDevs.CodeGeneration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.CodeGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\UnityEngine.dll</HintPath>
-    </Reference>
+    <Reference Include="$(UnityEditor)" />
+    <Reference Include="$(UnityEngine)" />
   </ItemGroup>
 
 </Project>

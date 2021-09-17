@@ -1,20 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="DesperateDevs.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Libraries\Dependencies\DesperateDevs\DesperateDevs.Utils.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Entitas\version.txt" />
     <EmbeddedResource Include="Entitas\version.txt">
       <LogicalName>version.txt</LogicalName>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DesperateDevs.Utils" Version="0.1.0" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="DesperateDevs.CodeGeneration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Libraries\Dependencies\DesperateDevs\DesperateDevs.CodeGeneration.dll</HintPath>
-    </Reference>
+    <PackageReference Include="DesperateDevs.CodeGeneration" Version="0.1.0" />
   </ItemGroup>
 
 </Project>
