@@ -7,7 +7,8 @@ Here's some code
 ```csharp
 using Entitas;
 
-public sealed class MyComponent : IComponent {
+public sealed class MyComponent : IComponent
+{
 }
 ```
 
