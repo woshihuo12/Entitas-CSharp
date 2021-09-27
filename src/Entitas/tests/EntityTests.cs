@@ -2,21 +2,15 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
+using static Entitas.Tests.TestHelper;
 
 namespace Entitas.Tests
 {
     public class EntityTests
     {
-        const int IndexA = 1;
-        const int IndexB = 2;
-        const int TotalComponents = 3;
-
-        static readonly int[] IndexesA = {IndexA};
-        static readonly int[] IndicesAb = {IndexA, IndexB};
-
         IEntity _entity;
 
-        public EntityTests() => _entity = CreateEntity(TotalComponents);
+        public EntityTests() => _entity = CreateEntity();
 
         [Fact]
         public void HasDefaultContextInfo()
@@ -699,27 +693,6 @@ namespace Entitas.Tests
             _entity.ToString().Should().NotBeSameAs(cache);
         }
 
-        static IEntity CreateEntity(int totalComponents)
-        {
-            var entity = new Entity();
-            entity.Initialize(0, totalComponents, new Stack<IComponent>[totalComponents]);
-            return entity;
-        }
-
-        IEntity CreateEntityA()
-        {
-            var e = CreateEntity(TotalComponents);
-            e.AddComponent(IndexA, new ComponentA());
-            return e;
-        }
-
-        IEntity CreateEntityAb()
-        {
-            var e = CreateEntityA();
-            e.AddComponent(IndexB, new ComponentB());
-            return e;
-        }
-
         static void AssertHasComponentA(IEntity entity, IComponent component)
         {
             entity.GetComponent(IndexA).Should().BeSameAs(component);
@@ -749,27 +722,5 @@ namespace Entitas.Tests
             entity.HasComponents(IndexesA).Should().BeFalse();
             entity.HasAnyComponent(IndexesA).Should().BeFalse();
         }
-    }
-
-    class MyNamespaceComponent : IComponent
-    {
-        public string Value;
-    }
-}
-
-class ComponentA : Entitas.IComponent { }
-
-class ComponentB : Entitas.IComponent { }
-
-class TestComponent : Entitas.IComponent { }
-
-class NameAgeComponent : Entitas.IComponent
-{
-    public string Name;
-    public int Age;
-
-    public override string ToString()
-    {
-        return $"NameAge({Name}, {Age})";
     }
 }
