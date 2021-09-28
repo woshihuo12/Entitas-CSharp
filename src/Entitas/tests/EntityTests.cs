@@ -142,13 +142,13 @@ namespace Entitas.Tests
         [Fact]
         public void DoesNotHaveComponentsAtIndexesWhenNotAllComponentsWereAdded()
         {
-            CreateEntityA().HasComponents(IndicesAb).Should().BeFalse();
+            CreateEntityA().HasComponents(IndexesAb).Should().BeFalse();
         }
 
         [Fact]
         public void HasAnyComponentsAtIndexesWhenAnyComponentWasAdded()
         {
-            CreateEntityA().HasAnyComponent(IndicesAb).Should().BeTrue();
+            CreateEntityA().HasAnyComponent(IndexesAb).Should().BeTrue();
         }
 
         [Fact]
@@ -180,7 +180,7 @@ namespace Entitas.Tests
         [Fact]
         public void HasComponentsAtIndexesWhenAllComponentsWereAdded()
         {
-            CreateEntityAb().HasComponents(IndicesAb).Should().BeTrue();
+            CreateEntityAb().HasComponents(IndexesAb).Should().BeTrue();
         }
 
         [Fact]
