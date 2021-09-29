@@ -10,7 +10,7 @@ namespace Entitas.Tests
     {
         readonly IMatcher<Entity> _matcherA = Matcher<Entity>.AllOf(IndexA);
         readonly IMatcher<Entity> _matcherB = Matcher<Entity>.AllOf(IndexB);
-        readonly IMatcher<Entity> _matcherAb = Matcher<Entity>.AllOf(IndexesAb);
+        readonly IMatcher<Entity> _matcherAb = Matcher<Entity>.AllOf(new[] {IndexA, IndexB});
 
         IContext<Entity> _context = new TestContext();
 

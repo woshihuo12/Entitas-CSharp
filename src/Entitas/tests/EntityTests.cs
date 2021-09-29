@@ -89,7 +89,7 @@ namespace Entitas.Tests
         [Fact]
         public void DoeNotHaveComponentsAtIndexesWhenNoComponentsWereAdded()
         {
-            _entity.HasComponents(IndexesA).Should().BeFalse();
+            _entity.HasComponents(new[] {IndexA}).Should().BeFalse();
         }
 
         [Fact]
@@ -142,13 +142,13 @@ namespace Entitas.Tests
         [Fact]
         public void DoesNotHaveComponentsAtIndexesWhenNotAllComponentsWereAdded()
         {
-            CreateEntityA().HasComponents(IndexesAb).Should().BeFalse();
+            CreateEntityA().HasComponents(new[] {IndexA, IndexB}).Should().BeFalse();
         }
 
         [Fact]
         public void HasAnyComponentsAtIndexesWhenAnyComponentWasAdded()
         {
-            CreateEntityA().HasAnyComponent(IndexesAb).Should().BeTrue();
+            CreateEntityA().HasAnyComponent(new[] {IndexA, IndexB}).Should().BeTrue();
         }
 
         [Fact]
@@ -180,7 +180,7 @@ namespace Entitas.Tests
         [Fact]
         public void HasComponentsAtIndexesWhenAllComponentsWereAdded()
         {
-            CreateEntityAb().HasComponents(IndexesAb).Should().BeTrue();
+            CreateEntityAb().HasComponents(new[] {IndexA, IndexB}).Should().BeTrue();
         }
 
         [Fact]
@@ -706,8 +706,9 @@ namespace Entitas.Tests
             indices.Should().Contain(IndexA);
 
             entity.HasComponent(IndexA).Should().BeTrue();
-            entity.HasComponents(IndexesA).Should().BeTrue();
-            entity.HasAnyComponent(IndexesA).Should().BeTrue();
+            var indexesA = new[] {IndexA};
+            entity.HasComponents(indexesA).Should().BeTrue();
+            entity.HasAnyComponent(indexesA).Should().BeTrue();
         }
 
         static void AssertHasNotComponentA(IEntity entity)
@@ -719,8 +720,9 @@ namespace Entitas.Tests
             indices.Length.Should().Be(0);
 
             entity.HasComponent(IndexA).Should().BeFalse();
-            entity.HasComponents(IndexesA).Should().BeFalse();
-            entity.HasAnyComponent(IndexesA).Should().BeFalse();
+            var indexesA = new[] {IndexA};
+            entity.HasComponents(indexesA).Should().BeFalse();
+            entity.HasAnyComponent(indexesA).Should().BeFalse();
         }
     }
 }

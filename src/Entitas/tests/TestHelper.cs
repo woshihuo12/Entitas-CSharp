@@ -6,10 +6,9 @@ namespace Entitas.Tests
     {
         public const int IndexA = 1;
         public const int IndexB = 2;
-        public const int TotalComponents = 3;
-
-        public static readonly int[] IndexesA = {IndexA};
-        public static readonly int[] IndexesAb = {IndexA, IndexB};
+        public const int IndexC = 3;
+        public const int IndexD = 4;
+        public const int TotalComponents = 5;
 
         public static Entity CreateEntity(int totalComponents = TotalComponents)
         {
