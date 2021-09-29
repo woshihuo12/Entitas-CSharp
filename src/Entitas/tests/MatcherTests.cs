@@ -4,6 +4,7 @@ using static Entitas.Tests.TestHelper;
 
 namespace Entitas.Tests
 {
+    [Collection("Non-Parallel")]
     public class MatcherTests
     {
         readonly Entity _entityA;
@@ -285,14 +286,14 @@ namespace Entitas.Tests
         [Fact]
         public void AllOfThrowsWhenMergingAllOfMatcherWithMoreThanOneIndex()
         {
-            this.Invoking(_ => { Matcher<Entity>.AllOf(Matcher<Entity>.AllOf(IndexA, IndexB)); })
+            FluentActions.Invoking(() => Matcher<Entity>.AllOf(Matcher<Entity>.AllOf(IndexA, IndexB)))
                 .Should().Throw<MatcherException>();
         }
 
         [Fact]
         public void AnyOfThrowsWhenMergingMatcherWithMoreThanOneIndex()
         {
-            this.Invoking(_ => { Matcher<Entity>.AnyOf(Matcher<Entity>.AnyOf(IndexA, IndexB)); })
+            FluentActions.Invoking(() => Matcher<Entity>.AnyOf(Matcher<Entity>.AnyOf(IndexA, IndexB)))
                 .Should().Throw<MatcherException>();
         }
 

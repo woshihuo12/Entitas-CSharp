@@ -6,6 +6,7 @@ using static Entitas.Tests.TestHelper;
 
 namespace Entitas.Tests
 {
+    [Collection("Non-Parallel")]
     public class ContextTests
     {
         readonly IMatcher<Entity> _matcherA = Matcher<Entity>.AllOf(IndexA);
@@ -96,7 +97,7 @@ namespace Entitas.Tests
         [Fact]
         public void ThrowsWhenComponentNamesIsNotSameLengthAsTotalComponents()
         {
-            this.Invoking(_ => new TestContext(2, 0, new ContextInfo(string.Empty, new[] {"ComponentA"}, new[] {typeof(ComponentA)})))
+            FluentActions.Invoking(() => new TestContext(2, 0, new ContextInfo(string.Empty, new[] {"ComponentA"}, new[] {typeof(ComponentA)})))
                 .Should().Throw<ContextInfoException>();
         }
 

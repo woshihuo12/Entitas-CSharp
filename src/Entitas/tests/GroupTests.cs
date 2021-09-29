@@ -7,6 +7,7 @@ using static Entitas.Tests.TestHelper;
 
 namespace Entitas.Tests
 {
+    [Collection("Non-Parallel")]
     public class GroupTests
     {
         readonly IGroup<Entity> _groupA;
