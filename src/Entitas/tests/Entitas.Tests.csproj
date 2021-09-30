@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Entitas.Blueprints\src\Entitas.Blueprints.csproj" />
     <ProjectReference Include="..\src\Entitas.csproj" />
   </ItemGroup>
 
