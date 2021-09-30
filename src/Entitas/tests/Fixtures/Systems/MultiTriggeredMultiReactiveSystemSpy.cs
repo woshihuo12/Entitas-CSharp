@@ -16,7 +16,7 @@ public class MultiTriggeredMultiReactiveSystemSpy : MultiReactiveSystem<IMyEntit
 
     protected override ICollector[] GetTrigger(TestContexts contexts) => new ICollector[]
     {
-        contexts.Context1.CreateCollector(Matcher<IMyEntity>.AllOf(IndexA)),
+        contexts.Context1.CreateCollector(Matcher<IMyEntity>.AllOf(IndexA).Added()),
         contexts.Context2.CreateCollector(Matcher<IMyEntity>.AllOf(IndexA).Removed())
     };
 
