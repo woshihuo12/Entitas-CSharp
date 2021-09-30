@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entitas.Tests.Fixtures.Components;
 using FluentAssertions;
 using Xunit;
 using static Entitas.Tests.TestHelper;
@@ -215,7 +216,7 @@ namespace Entitas.Tests
         {
             var entity = CreateEntityAb();
             entity.AddComponent(0, new MyNamespaceComponent());
-            entity.ToString().Should().Be("Entity_0(Entitas.Tests.MyNamespaceComponent, ComponentA, ComponentB)");
+            entity.ToString().Should().Be("Entity_0(Entitas.Tests.Fixtures.Components.MyNamespaceComponent, ComponentA, ComponentB)");
         }
 
         [Fact]

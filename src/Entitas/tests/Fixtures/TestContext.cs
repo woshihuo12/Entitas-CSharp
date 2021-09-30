@@ -8,3 +8,4 @@ namespace Entitas.Tests.Fixtures
             : base(totalComponents, startCreationIndex, contextInfo, (entity) => new SafeAERC(entity), () => new Entity()) { }
     }
 }
+

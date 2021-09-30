@@ -1,4 +1,4 @@
-namespace Entitas.Tests
+namespace Entitas.Tests.Fixtures.Components
 {
     public class MyNamespaceComponent : IComponent
     {
