@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Entitas {
 
     /// Systems provide a convenient way to group systems.
     /// You can add IInitializeSystem, IExecuteSystem, ICleanupSystem,
-    /// ITearDownSystem, ReactiveSystem and other nested Systems instances.
+    /// ITearDownSystem, ReactiveS
+    /// ystem and other nested Systems instances.
     /// All systems will be initialized and executed based on the order
     /// you added them.
     public class Systems : IInitializeSystem, IExecuteSystem, ICleanupSystem, ITearDownSystem {
@@ -14,13 +16,16 @@ namespace Entitas {
         protected readonly List<ICleanupSystem> _cleanupSystems;
         protected readonly List<ITearDownSystem> _tearDownSystems;
 
-        /// Creates a new Systems instance.
-        public Systems() {
+		protected readonly List<ISystem> _allSystems;
+
+		/// Creates a new Systems instance.
+		public Systems() {
             _initializeSystems = new List<IInitializeSystem>();
             _executeSystems = new List<IExecuteSystem>();
             _cleanupSystems = new List<ICleanupSystem>();
             _tearDownSystems = new List<ITearDownSystem>();
-        }
+			_allSystems = new List<ISystem>();
+		}
 
         /// Adds the system instance to the systems list.
         public virtual Systems Add(ISystem system) {
@@ -44,6 +49,7 @@ namespace Entitas {
                 _tearDownSystems.Add(tearDownSystem);
             }
 
+			_allSystems.Add(system);
             return this;
         }
 
@@ -129,5 +135,9 @@ namespace Entitas {
                 }
             }
         }
-    }
+
+		public ReadOnlyCollection<ISystem> GetAllSystems() {
+			return _allSystems.AsReadOnly();
+		}
+	}
 }

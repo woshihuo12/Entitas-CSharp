@@ -1,6 +1,6 @@
 ﻿namespace Entitas {
 
-    public interface ICompoundMatcher<TEntity> : IMatcher<TEntity> where TEntity : class, IEntity {
+    public interface ICompoundMatcher : IMatcher {
 
         int[] allOfIndices { get; }
         int[] anyOfIndices { get; }

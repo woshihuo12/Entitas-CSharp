@@ -2,24 +2,24 @@
 
 namespace Entitas {
 
-    public abstract class AbstractEntityIndex<TEntity, TKey> : IEntityIndex where TEntity : class, IEntity {
+    public abstract class AbstractEntityIndex<TKey> : IEntityIndex {
 
         public string name { get { return _name; } }
 
         protected readonly string _name;
-        protected readonly IGroup<TEntity> _group;
-        protected readonly Func<TEntity, IComponent, TKey> _getKey;
-        protected readonly Func<TEntity, IComponent, TKey[]> _getKeys;
+        protected readonly IGroup _group;
+        protected readonly Func<Entity, IComponent, TKey> _getKey;
+        protected readonly Func<Entity, IComponent, TKey[]> _getKeys;
         protected readonly bool _isSingleKey;
 
-        protected AbstractEntityIndex(string name, IGroup<TEntity> group, Func<TEntity, IComponent, TKey> getKey) {
+        protected AbstractEntityIndex(string name, IGroup group, Func<Entity, IComponent, TKey> getKey) {
             _name = name;
             _group = group;
             _getKey = getKey;
             _isSingleKey = true;
         }
 
-        protected AbstractEntityIndex(string name, IGroup<TEntity> group, Func<TEntity, IComponent, TKey[]> getKeys) {
+        protected AbstractEntityIndex(string name, IGroup group, Func<Entity, IComponent, TKey[]> getKeys) {
             _name = name;
             _group = group;
             _getKeys = getKeys;
@@ -41,7 +41,7 @@ namespace Entitas {
             return name;
         }
 
-        protected void indexEntities(IGroup<TEntity> group) {
+        protected void indexEntities(IGroup group) {
             foreach (var entity in group) {
                 if (_isSingleKey) {
                     addEntity(_getKey(entity, null), entity);
@@ -54,7 +54,7 @@ namespace Entitas {
             }
         }
 
-        protected void onEntityAdded(IGroup<TEntity> group, TEntity entity, int index, IComponent component) {
+        protected void onEntityAdded(IGroup group, Entity entity, int index, IComponent component) {
             if (_isSingleKey) {
                 addEntity(_getKey(entity, component), entity);
             } else {
@@ -65,7 +65,7 @@ namespace Entitas {
             }
         }
 
-        protected void onEntityRemoved(IGroup<TEntity> group, TEntity entity, int index, IComponent component) {
+        protected void onEntityRemoved(IGroup group, Entity entity, int index, IComponent component) {
             if (_isSingleKey) {
                 removeEntity(_getKey(entity, component), entity);
             } else {
@@ -76,9 +76,9 @@ namespace Entitas {
             }
         }
 
-        protected abstract void addEntity(TKey key, TEntity entity);
+        protected abstract void addEntity(TKey key, Entity entity);
 
-        protected abstract void removeEntity(TKey key, TEntity entity);
+        protected abstract void removeEntity(TKey key, Entity entity);
 
         protected abstract void clear();
 

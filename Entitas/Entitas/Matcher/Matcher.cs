@@ -1,6 +1,6 @@
 ﻿namespace Entitas {
 
-    public partial class Matcher<TEntity> : IAllOfMatcher<TEntity> where TEntity : class, IEntity {
+    public partial class Matcher : IAllOfMatcher {
 
         public int[] indices {
             get {
@@ -25,32 +25,32 @@
         Matcher() {
         }
 
-        IAnyOfMatcher<TEntity> IAllOfMatcher<TEntity>.AnyOf(params int[] indices) {
+        IAnyOfMatcher IAllOfMatcher.AnyOf(params int[] indices) {
             _anyOfIndices = distinctIndices(indices);
             _indices = null;
             _isHashCached = false;
             return this;
         }
 
-        IAnyOfMatcher<TEntity> IAllOfMatcher<TEntity>.AnyOf(params IMatcher<TEntity>[] matchers) {
-            return ((IAllOfMatcher<TEntity>)this).AnyOf(mergeIndices(matchers));
+        IAnyOfMatcher IAllOfMatcher.AnyOf(params IMatcher[] matchers) {
+            return ((IAllOfMatcher)this).AnyOf(mergeIndices(matchers));
         }
 
-        public INoneOfMatcher<TEntity> NoneOf(params int[] indices) {
+        public INoneOfMatcher NoneOf(params int[] indices) {
             _noneOfIndices = distinctIndices(indices);
             _indices = null;
             _isHashCached = false;
             return this;
         }
 
-        public INoneOfMatcher<TEntity> NoneOf(params IMatcher<TEntity>[] matchers) {
+        public INoneOfMatcher NoneOf(params IMatcher[] matchers) {
             return NoneOf(mergeIndices(matchers));
         }
 
-        public bool Matches(TEntity entity) {
+        public bool Matches(Entity entity) {
             return (_allOfIndices == null || entity.HasComponents(_allOfIndices))
-                   && (_anyOfIndices == null || entity.HasAnyComponent(_anyOfIndices))
-                   && (_noneOfIndices == null || !entity.HasAnyComponent(_noneOfIndices));
+                && (_anyOfIndices == null || entity.HasAnyComponent(_anyOfIndices))
+                && (_noneOfIndices == null || !entity.HasAnyComponent(_noneOfIndices));
         }
     }
 }

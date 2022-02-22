@@ -1,19 +1,30 @@
-﻿namespace Entitas {
+﻿using System;
+
+namespace Entitas {
 
     public static class CollectorContextExtension {
 
         /// Creates a Collector.
-        public static ICollector<TEntity> CreateCollector<TEntity>(
-            this IContext<TEntity> context, IMatcher<TEntity> matcher) where TEntity : class, IEntity {
+        // TODO Obsolete since 0.42.0, April 2017
+        [Obsolete("Please use context.CreateCollector(Matcher.Xyz.Added()) (or .Removed(), or .AddedOrRemoved())")]
+        public static ICollector CreateCollector(
+            this IContext context, IMatcher matcher, GroupEvent groupEvent) {
 
-            return context.CreateCollector(new TriggerOnEvent<TEntity>(matcher, GroupEvent.Added));
+            return context.CreateCollector(new TriggerOnEvent(matcher, groupEvent));
         }
 
         /// Creates a Collector.
-        public static ICollector<TEntity> CreateCollector<TEntity>(
-            this IContext<TEntity> context, params TriggerOnEvent<TEntity>[] triggers) where TEntity : class, IEntity {
+        public static ICollector CreateCollector(
+            this IContext context, IMatcher matcher) {
 
-            var groups = new IGroup<TEntity>[triggers.Length];
+            return context.CreateCollector(new TriggerOnEvent(matcher, GroupEvent.Added));
+        }
+
+        /// Creates a Collector.
+        public static ICollector CreateCollector(
+            this IContext context, params TriggerOnEvent[] triggers) {
+
+            var groups = new IGroup[triggers.Length];
             var groupEvents = new GroupEvent[triggers.Length];
 
             for (int i = 0; i < triggers.Length; i++) {
@@ -21,7 +32,7 @@
                 groupEvents[i] = triggers[i].groupEvent;
             }
 
-            return new Collector<TEntity>(groups, groupEvents);
+            return new Collector(groups, groupEvents);
         }
     }
 }

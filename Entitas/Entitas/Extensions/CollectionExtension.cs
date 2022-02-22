@@ -18,7 +18,7 @@ namespace Entitas {
         /// Returns the only entity in the collection.
         /// It will throw an exception if the collection doesn't have
         /// exactly one entity.
-        public static TEntity SingleEntity<TEntity>(this ICollection<TEntity> collection) where TEntity : class, IEntity {
+        public static Entity SingleEntity(this ICollection<Entity> collection) {
             if (collection.Count != 1) {
                 throw new SingleEntityException(collection.Count);
             }

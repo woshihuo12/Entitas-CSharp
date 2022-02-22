@@ -6,34 +6,34 @@ namespace Entitas {
 
     /// A Collector can observe one or more groups from the same context
     /// and collects changed entities based on the specified groupEvent.
-    public class Collector<TEntity> : ICollector<TEntity> where TEntity : class, IEntity {
+    public class Collector : ICollector {
 
         /// Returns all collected entities.
         /// Call collector.ClearCollectedEntities()
         /// once you processed all entities.
-        public HashSet<TEntity> collectedEntities { get { return _collectedEntities; } }
+        public HashSet<Entity> collectedEntities { get { return _collectedEntities; } }
 
         /// Returns the number of all collected entities.
         public int count { get { return _collectedEntities.Count; } }
 
-        readonly HashSet<TEntity> _collectedEntities;
-        readonly IGroup<TEntity>[] _groups;
+        readonly HashSet<Entity> _collectedEntities;
+        readonly IGroup[] _groups;
         readonly GroupEvent[] _groupEvents;
 
-        GroupChanged<TEntity> _addEntityCache;
+        GroupChanged _addEntityCache;
         string _toStringCache;
         StringBuilder _toStringBuilder;
 
         /// Creates a Collector and will collect changed entities
         /// based on the specified groupEvent.
-        public Collector(IGroup<TEntity> group, GroupEvent groupEvent) : this(new[] { group }, new[] { groupEvent }) {
+        public Collector(IGroup group, GroupEvent groupEvent) : this(new [] { group }, new [] { groupEvent }) {
         }
 
         /// Creates a Collector and will collect changed entities
         /// based on the specified groupEvents.
-        public Collector(IGroup<TEntity>[] groups, GroupEvent[] groupEvents) {
+        public Collector(IGroup[] groups, GroupEvent[] groupEvents) {
             _groups = groups;
-            _collectedEntities = new HashSet<TEntity>(EntityEqualityComparer<TEntity>.comparer);
+            _collectedEntities = new HashSet<Entity>(EntityEqualityComparer.comparer);
             _groupEvents = groupEvents;
 
             if (groups.Length != groupEvents.Length) {
@@ -85,11 +85,12 @@ namespace Entitas {
             ClearCollectedEntities();
         }
 
+
         /// Returns all collected entities and casts them.
         /// Call collector.ClearCollectedEntities()
         /// once you processed all entities.
-        public IEnumerable<TCast> GetCollectedEntities<TCast>() where TCast : class, IEntity {
-            return _collectedEntities.Cast<TCast>();
+        public IEnumerable<Entity> GetCollectedEntities() {
+            return _collectedEntities;
         }
 
         /// Clears all collected entities.
@@ -100,7 +101,7 @@ namespace Entitas {
             _collectedEntities.Clear();
         }
 
-        void addEntity(IGroup<TEntity> group, TEntity entity, int index, IComponent component) {
+        void addEntity(IGroup group, Entity entity, int index, IComponent component) {
             var added = _collectedEntities.Add(entity);
             if (added) {
                 entity.Retain(this);

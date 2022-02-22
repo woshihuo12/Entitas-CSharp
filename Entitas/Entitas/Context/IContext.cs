@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Entitas {
 
@@ -24,23 +25,16 @@ namespace Entitas {
 
         void DestroyAllEntities();
 
-        void AddEntityIndex(IEntityIndex entityIndex);
-        IEntityIndex GetEntityIndex(string name);
-
         void ResetCreationIndex();
         void ClearComponentPool(int index);
         void ClearComponentPools();
-        void RemoveAllEventHandlers();
         void Reset();
-    }
 
-    public interface IContext<TEntity> : IContext where TEntity : class, IEntity {
+		Entity CreateEntity();
 
-        TEntity CreateEntity();
+		bool HasEntity(Entity entity);
+		Entity[] GetEntities();
 
-        bool HasEntity(TEntity entity);
-        TEntity[] GetEntities();
-
-        IGroup<TEntity> GetGroup(IMatcher<TEntity> matcher);
-    }
+		IGroup GetGroup(IMatcher matcher);
+	}
 }

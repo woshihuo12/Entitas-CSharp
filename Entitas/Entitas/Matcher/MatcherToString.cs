@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Entitas {
 
-    public partial class Matcher<TEntity> {
+    public partial class Matcher {
 
         string _toStringCache;
         StringBuilder _toStringBuilder;
