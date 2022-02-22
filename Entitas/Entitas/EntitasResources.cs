@@ -6,8 +6,8 @@ namespace Entitas {
 
         public static string GetVersion() {
             var assembly = typeof(Entity).Assembly;
-            var stream = assembly.GetManifestResourceStream("version");
-            var version = "";
+            var stream = assembly.GetManifestResourceStream("version.txt");
+            string version;
             using(var reader = new StreamReader(stream)) {
                 version = reader.ReadToEnd();
             }
